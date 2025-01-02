@@ -26,7 +26,7 @@ model Todo {
   id          Int      @id @default(autoincrement())
   title       String
   content     String
-  isCompleted Boolean
+  isCompleted Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

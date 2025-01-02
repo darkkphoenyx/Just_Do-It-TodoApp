@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -48,10 +49,10 @@ export default function Login({ onClose }: LoginProps) {
         "http://localhost:3000/user/login",
         signInData
       );
-      const data = response.data;
+      const data: any = response.data;
 
-      console.log("Sign In Success:", data); // Handle successful sign-in
-
+      console.log("Sign In Success:", data.accessToken); // Handle successful sign-in
+      localStorage.setItem("accessToken", data.accessToken);
       // Show success alert
       Swal.fire({
         icon: "success",

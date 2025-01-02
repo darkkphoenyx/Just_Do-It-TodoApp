@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import * as todoService from '../services/todo.service'
+import { ItodoBody, IupdateTodo } from '../interface/todo.interface'
 
 //POST todos
 export const postTodos = async (
@@ -7,7 +8,7 @@ export const postTodos = async (
     res: Response,
     next: NextFunction
 ) => {
-    const response = await todoService.postTodo(req.body)
+    const response = await todoService.postTodo(req.body as ItodoBody)
     res.send(response)
 }
 
@@ -60,7 +61,7 @@ export const updateTodo = async (
     next: NextFunction
 ) => {
     try {
-        const response = await todoService.updateTodo(Number(req.params.id), req.body)
+        const response = await todoService.updateTodo(Number(req.params.id), req.body as IupdateTodo)
         res.json(response)
     } catch (err) {
         next(err)

@@ -1,17 +1,15 @@
 import { PrismaClient } from '@prisma/client'
 import Boom from '@hapi/boom'
+import { ItodoBody, IupdateTodo } from '../interface/todo.interface'
 
 const prisma = new PrismaClient()
 
 // POST todos
-export const postTodo = async (body: any) => {
-    const { title, content } = body
+export const postTodo = async (body: ItodoBody) => {
     try {
         return await prisma.todo.create({
             data: {
-                title,
-                content,
-                isCompleted: false,
+                ...body,
             },
         })
     } catch (err: any) {
@@ -56,12 +54,11 @@ export const deleteTodo = async (id: number) => {
 }
 
 // UPDATE by id
-export const updateTodo = async (id: number, body: any) => {
-    const { title, content } = body
+export const updateTodo = async (id: number, body:Partial <IupdateTodo>) => {
     try {
         const todo = await prisma.todo.update({
             where: { id },
-            data: { title, content },
+            data: { ...body},
         })
         return { id: todo.id, title: todo.title, content: todo.content, isCompleted: todo.isCompleted, updatedAt: todo.updatedAt }
     } catch (err: any) {
