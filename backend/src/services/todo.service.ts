@@ -70,7 +70,7 @@ export const updateTodo = async (id: number, body: any) => {
 }
 
 
-// Toggle todo 
+// Toggle todo
 export const toggleTodo = async (id: number) => {
     try {
         const todo = await prisma.todo.findUnique({
@@ -79,14 +79,15 @@ export const toggleTodo = async (id: number) => {
         if (!todo) {
             throw Boom.notFound('Todo not found');
         }
-
         const updatedTodo = await prisma.todo.update({
             where: { id },
             data: { isCompleted: !todo.isCompleted },
         });
-
         return { id: updatedTodo.id, isCompleted: updatedTodo.isCompleted };
     } catch (err: any) {
+         if (err.isBoom) {
+            throw err;
+        }
         throw Boom.badImplementation('Failed to toggle todo', err);
     }
-}
+};
