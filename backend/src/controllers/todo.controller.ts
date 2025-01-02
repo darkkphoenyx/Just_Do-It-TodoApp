@@ -81,3 +81,31 @@ export const toggleTodo = async (
         next(err)
     }
 }
+
+//serach by title
+export const searchByTitle = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const response = await todoService.searchByTitle(req.query.title as string)
+        res.json(response)
+    } catch (err) {
+        next(err)
+    }
+}
+
+//search by status
+export const searchByStatus = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const response = await todoService.searchByStatus(req.query.status as string)
+        res.json(response)
+    } catch (err) {
+        next(err)
+    }
+}

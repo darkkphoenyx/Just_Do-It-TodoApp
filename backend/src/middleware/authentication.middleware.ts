@@ -8,7 +8,12 @@ export function authenticateToken(
     res: Response,
     next: NextFunction
 ) {
-    const token = req.headers.authorization?.split(' ')[1];
+    let token: string | undefined;
+    if (req.headers.authorization?.startsWith('Bearer')) {
+        token = req.headers.authorization?.split(' ')[1];
+    } else {
+        token = req.headers.authorization;
+    }
     if (!token) {
         throw Boom.badRequest('Missing authentication token');
     }
