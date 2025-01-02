@@ -1,7 +1,7 @@
 import { Request } from "express";
 
 export interface RequestWithUserObject extends Request {
-    user: UserJWTPayload
+    user?: UserJWTPayload;
   }
 
   export interface UserJWTPayload {
