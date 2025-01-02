@@ -49,7 +49,7 @@ export const deleteTodo = async (id: number) => {
         const todo = await prisma.todo.delete({
             where: { id },
         })
-        return todo
+        return {message: 'Todo deleted successfully', id: todo.id}
     } catch (err: any) {
         throw Boom.notFound('Todo not found', err)
     }
@@ -75,15 +75,18 @@ export const toggleTodo = async (id: number) => {
     try {
         const todo = await prisma.todo.findUnique({
             where: { id },
-        })
+        });
         if (!todo) {
-            throw Boom.notFound('Todo not found')
+            throw Boom.notFound('Todo not found');
         }
-        return await prisma.todo.update({
+
+        const updatedTodo = await prisma.todo.update({
             where: { id },
             data: { isCompleted: !todo.isCompleted },
-        })
+        });
+
+        return { id: updatedTodo.id, isCompleted: updatedTodo.isCompleted };
     } catch (err: any) {
-        throw Boom.notFound('Todo not found', err)
+        throw Boom.badImplementation('Failed to toggle todo', err);
     }
 }
