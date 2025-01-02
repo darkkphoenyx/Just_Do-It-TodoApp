@@ -49,7 +49,7 @@ export const deleteTodo = async (id: number) => {
         const todo = await prisma.todo.delete({
             where: { id },
         })
-        return todo
+        return {message: 'Todo deleted successfully', id: todo.id}
     } catch (err: any) {
         throw Boom.notFound('Todo not found', err)
     }
