@@ -18,4 +18,8 @@ router.patch('/update/:id', authenticateToken, todoController.updateTodo);
 
 router.patch('/toggle/:id', authenticateToken, todoController.toggleTodo);
 
+router.get('/title', authenticateToken, todoController.searchByTitle);
+
+router.get('/status', authenticateToken, todoController.searchByStatus);
+
 export default router;

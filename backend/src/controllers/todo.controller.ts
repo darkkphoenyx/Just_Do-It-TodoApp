@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import * as todoService from '../services/todo.service'
+import { ItodoBody, IupdateTodo } from '../interface/todo.interface'
 
 //POST todos
 export const postTodos = async (
@@ -7,7 +8,7 @@ export const postTodos = async (
     res: Response,
     next: NextFunction
 ) => {
-    const response = await todoService.postTodo(req.body)
+    const response = await todoService.postTodo(req.body as ItodoBody)
     res.send(response)
 }
 
@@ -60,7 +61,7 @@ export const updateTodo = async (
     next: NextFunction
 ) => {
     try {
-        const response = await todoService.updateTodo(Number(req.params.id), req.body)
+        const response = await todoService.updateTodo(Number(req.params.id), req.body as IupdateTodo)
         res.json(response)
     } catch (err) {
         next(err)
@@ -75,6 +76,34 @@ export const toggleTodo = async (
 ) => {
     try {
         const response = await todoService.toggleTodo(Number(req.params.id))
+        res.json(response)
+    } catch (err) {
+        next(err)
+    }
+}
+
+//serach by title
+export const searchByTitle = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const response = await todoService.searchByTitle(req.query.title as string)
+        res.json(response)
+    } catch (err) {
+        next(err)
+    }
+}
+
+//search by status
+export const searchByStatus = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const response = await todoService.searchByStatus(req.query.status as string)
         res.json(response)
     } catch (err) {
         next(err)
