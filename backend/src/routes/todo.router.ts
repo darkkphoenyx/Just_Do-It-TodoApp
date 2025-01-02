@@ -16,6 +16,6 @@ router.delete('/delete/:id', authenticateToken, todoController.deleteTodosByID);
 
 router.patch('/update/:id', authenticateToken, todoController.updateTodo);
 
-router.patch('/:id/toggle', authenticateToken, todoController.toggleTodo);
+router.patch('/toggle/:id', authenticateToken, todoController.toggleTodo);
 
 export default router;
