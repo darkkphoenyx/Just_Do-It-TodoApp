@@ -63,7 +63,7 @@ export const updateTodo = async (id: number, body: any) => {
             where: { id },
             data: { title, content },
         })
-        return todo
+        return { id: todo.id, title: todo.title, content: todo.content, isCompleted: todo.isCompleted, updatedAt: todo.updatedAt }
     } catch (err: any) {
         throw Boom.notFound('Todo not found', err)
     }
