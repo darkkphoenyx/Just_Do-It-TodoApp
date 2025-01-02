@@ -5,7 +5,7 @@ import express, {
     Response,
 } from 'express'
 import cors from 'cors'
-// import todosRouter from './routes/todo.router'
+import todosRouter from './routes/todo.router'
 import userRouter from './routes/auth.router'
 import buildError from './utils/build-error'
 import dotenv from 'dotenv';
@@ -18,7 +18,7 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
 app.use(cors())
-// app.use('/todos', todosRouter)
+app.use('/todos', todosRouter)
 app.use('/user', userRouter)
 
 //Error handler

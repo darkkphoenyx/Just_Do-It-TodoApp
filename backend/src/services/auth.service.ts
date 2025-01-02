@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import { signupBodySchema } from '../vallidators/auth.validator';
+import { signupBodySchema } from '../validarors/auth.validator';
 import { z } from 'zod';
 import Boom from '@hapi/boom';
 import {
