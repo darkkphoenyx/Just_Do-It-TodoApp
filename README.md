@@ -32,7 +32,7 @@ Check [Issues](https://github.com/darkkphoenyx/task1_Todo_final/issues) for cont
 
 <p align="center">
 <img src="./documents/page1.png" alt="page1 png"/>
-a) Loging In
+a) Logging In
 
 <p align="center">
 <img src="./documents/page2.png" alt="page2 png"/>
