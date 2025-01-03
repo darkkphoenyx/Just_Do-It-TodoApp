@@ -35,9 +35,12 @@ export const getTodo = async (id: number) => {
 }
 
 // Get all todos
-export const getTodosAll = async () => {
+export const getTodosAll = async (userId:any) => {
     try {
         return await prisma.todo.findMany({
+            where: {
+                userId
+            },
             select: {
                 id: true,
                 title: true,
@@ -135,30 +138,35 @@ export const toggleTodo = async (id: number,userId:any) => {
 }
 
 // Search by title
-export const searchByTitle = async (title: string) => {
+export const searchByTitle = async (title: string,userId:any) => {
     try {
         const todo = await prisma.todo.findMany({
             where: {
+                userId,
                 title: {
                     contains: title,
                 },
             },
         })
+        if (!todo) {   
+            throw Boom.notFound('Todo not found')
+        }
         return todo
     } catch (err: any) {
-        throw Boom.badImplementation('Failed to search todo', err)
+        throw err
     }
 }
 
 // Search by status
-export const searchByStatus = async (isCompleted: string) => {
+export const searchByStatus = async (isCompleted: string,userId:any) => {
     try {
         const convertedStatus: boolean | string = handleStatus(isCompleted)
         if (convertedStatus.toString().length === 0) {
-            return await getTodosAll()
+            return await getTodosAll(userId)
         }
         const todo = await prisma.todo.findMany({
             where: {
+                userId,
                 isCompleted: convertedStatus as boolean,
             },
         })

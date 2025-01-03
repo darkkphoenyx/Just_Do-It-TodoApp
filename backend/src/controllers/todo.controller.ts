@@ -34,7 +34,8 @@ export const getTodosAll = async (
     next: NextFunction
 ) => {
     try {
-        const response = await todoService.getTodosAll()
+        const userId = req.user.userId
+        const response = await todoService.getTodosAll(userId)
         res.json(response)
     } catch (err) {
         next(err)
@@ -93,7 +94,8 @@ export const searchByTitle = async (
     next: NextFunction
 ) => {
     try {
-        const response = await todoService.searchByTitle(req.query.title as string)
+        const userId = req.user.userId  
+        const response = await todoService.searchByTitle(req.query.title as string,userId)
         res.json(response)
     } catch (err) {
         next(err)
@@ -107,7 +109,8 @@ export const searchByStatus = async (
     next: NextFunction
 ) => {
     try {
-        const response = await todoService.searchByStatus(req.query.status as string)
+        const userId = req.user.userId
+        const response = await todoService.searchByStatus(req.query.status as string,userId)
         res.json(response)
     } catch (err) {
         next(err)

@@ -28,14 +28,14 @@ export const loginUser = async (
     try {
         const { email, password } = loginBodySchema.parse(req.body)
 
-        const { accessToken, refreshToken } = await Authservice.login(
+        const { accessToken, refreshToken , username} = await Authservice.login(
             email,
             password
         )
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             path: '/api/auth/refresh',
-        }).json({ accessToken })
+        }).json({ accessToken , username})
     } catch (error) {
         next(error)
     }
