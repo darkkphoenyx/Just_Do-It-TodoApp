@@ -1,12 +1,14 @@
-interface ItodoBody{
+interface ItodoBody {
     title: string;
     content: string;
-    isCompleted: boolean;
+    isCompleted?: boolean;
+    userId: number;
 }
 
-interface IupdateTodo{
+interface IupdateTodo {
     title?: string;
     content?: string;
+    isCompleted?: boolean;
 }
 
 export { ItodoBody, IupdateTodo } ;

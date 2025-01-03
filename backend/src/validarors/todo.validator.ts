@@ -5,8 +5,8 @@ export const postTodoDto = z.object({
         title: z.string({
             required_error: 'title is required'
         }),
-        content:z.string({
-            required_error:'content is required'
+        content: z.string({
+            required_error: 'content is required'
         })
     }),
 })
