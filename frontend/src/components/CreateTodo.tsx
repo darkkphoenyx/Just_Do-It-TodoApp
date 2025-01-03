@@ -48,27 +48,43 @@ export const CreateTodo = ({ open, onClose, onAddTodo }: CreateTodoProps) => {
 
   return (
     <div className="fixed h-[100vh] inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-lg z-50">
-      <div className="bg-cyan-500 rounded-md w-[400px] p-4">
+      <div className="bg-cyan-700 rounded-md w-[400px] p-4">
         <form className="flex flex-col gap-4" onSubmit={handleClick}>
+          <h3 className="font-semibold text-lg">Create Todo</h3>
+          <hr />
           <input
-            className="rounded-sm p-2 outline-none"
+            className="rounded-md p-2 outline-none"
             type="text"
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
-            className="rounded-sm p-2 outline-none w-full h-32 resize-none"
+            className="rounded-md p-2 outline-none w-full h-32 resize-none"
             placeholder="Content (255 characters)"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
           <div className="flex justify-between">
-            <button type="submit">
-              <img className="h-8 w-auto" src="/assets/tick.svg" alt="create button" />
+            <button
+              className="transform hover:scale-110 bg-green-500 rounded-full p-1"
+              type="submit"
+            >
+              <img
+                className="h-8 w-auto"
+                src="/assets/tick.svg"
+                alt="create button "
+              />
             </button>
-            <button onClick={onClose}>
-              <img className="h-8 w-auto" src="/assets/close.svg" alt="exit btn" />
+            <button
+              className="transform hover:scale-110 bg-red-500 rounded-full p-1"
+              onClick={onClose}
+            >
+              <img
+                className="h-8 w-auto"
+                src="/assets/close.svg"
+                alt="exit btn"
+              />
             </button>
           </div>
         </form>

@@ -182,7 +182,7 @@ export const SearchBox = () => {
       <div className="search-box flex gap-2 w-full justify-center relative z-10">
         <div className="flex items-center border border-[--primary-color] p-1 rounded-md">
           <input
-            className="flex-grow p-1 outline-none bg-transparent text-white"
+            className="flex-grow p-1 outline-none bg-transparent text-white "
             type="text"
             placeholder="Search note..."
             onChange={(e) => setSearch(e.target.value)}
@@ -195,7 +195,7 @@ export const SearchBox = () => {
           <select
             value={selectedOption}
             onChange={handleChange}
-            className="outline-none p-2 rounded-md bg-[--secondary-color] text-black"
+            className="outline-none p-2 rounded-md bg-[--secondary-color] text-black transform hover:scale-105"
             name="filter"
           >
             <option value="all">All</option>
@@ -206,7 +206,7 @@ export const SearchBox = () => {
         <div>
           <button
             onClick={handleSearch}
-            className="p-2 bg-[--secondary-color] rounded-md active:translate-y-1 active:bg-[--primary-color] transition-all"
+            className="p-2 bg-[--secondary-color] rounded-md active:translate-y-1 active:bg-[--primary-color] transition-all transform hover:scale-105"
           >
             Search
           </button>
@@ -214,7 +214,7 @@ export const SearchBox = () => {
         <div>
           <button
             onClick={handleOpenCreateTodo}
-            className="p-2 bg-[--secondary-color] rounded-md active:translate-y-1 active:bg-[--primary-color] transition-all"
+            className="p-2 bg-[--secondary-color] rounded-md active:translate-y-1 active:bg-[--primary-color] transition-all transform hover:scale-105"
           >
             Create Todo
           </button>
@@ -233,7 +233,7 @@ export const SearchBox = () => {
             <div className="flex items-center justify-between">
               <h3 className="font-medium text-xl underline">{todo.title}</h3>
               <button
-                className={`toggle_isCompleted_btn p-2 rounded-full active:translate-y-0.5 ${
+                className={`toggle_isCompleted_btn p-2 rounded-full transform hover:scale-110 active:translate-y-0.5 ${
                   todo.isCompleted ? "bg-red-400" : "bg-green-400"
                 }`}
                 onClick={() => toggleIsComplete(todo)} // Toggle completion
@@ -252,14 +252,14 @@ export const SearchBox = () => {
             <p className="text-black mt-2">{todo.content}</p>
             <div className="flex items-center justify-between mt-4">
               <button
-                className="delte_btn bg-[--primary-color] p-2 rounded-full active:translate-y-1 transition-all"
+                className="delte_btn bg-[--primary-color] p-2 rounded-full active:translate-y-1 transform hover:scale-110 transition-all"
                 onClick={() => handleDelete(todo.id)}
               >
                 <img src="/assets/delete.svg" alt="delete button" />
               </button>
               <button
                 onClick={() => handleOpenUpdateTodo(todo)}
-                className="p-2 rounded-full bg-yellow-500"
+                className="p-2 rounded-full bg-yellow-500 transform hover:scale-110"
               >
                 <img src="/assets/edit.svg" alt="edit button" />
               </button>
@@ -273,9 +273,10 @@ export const SearchBox = () => {
       {/* Update Todo Modal */}
       {isUpdateTodoOpen && (
         <div className="fixed inset-0 z-50 flex justify-center items-center bg-gradient-to-r from-[#545455] to-[#0C3140]">
-          <div className="bg-white p-4 rounded-md shadow-lg w-[300px] space-y-2">
+          <div className="bg-[#0E7490] p-4 rounded-md shadow-lg w-[400px] space-y-2">
             <h3 className="font-semibold text-lg mb-2">Edit Todo</h3>
-            <p className="text-sm text-gray-500">Title</p>
+            <hr />
+            <p className="text-sm text-white">Title</p>
             <input
               type="text"
               value={editTitle}
@@ -283,7 +284,7 @@ export const SearchBox = () => {
               placeholder="Title"
               className="w-full mb-2 p-2 border border-gray-400 rounded-md outline-none"
             />
-            <p className="text-sm text-gray-500">Content</p>
+            <p className="text-sm text-white">Content</p>
             <textarea
               value={editContent}
               onChange={(e) => setEditContent(e.target.value)}
@@ -293,13 +294,13 @@ export const SearchBox = () => {
             <div className="flex justify-between">
               <button
                 onClick={handleUpdateTodo}
-                className="bg-blue-500 text-white p-2 rounded-md"
+                className="bg-green-500 text-white p-2 rounded-md transform hover:scale-105"
               >
                 Update
               </button>
               <button
                 onClick={handleCloseUpdateTodo}
-                className="bg-red-500 text-white p-2 rounded-md"
+                className="bg-red-500 text-white p-2 rounded-md transform hover:scale-105"
               >
                 Cancel
               </button>
