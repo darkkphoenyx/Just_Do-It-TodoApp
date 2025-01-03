@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchBox } from "../../components/SearchBox";
+import { Footer } from "../Footer/Footer";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ export default function HomePage() {
         </h1>
         <SearchBox />
       </div>
+      <Footer/>
     </>
   );
 }

@@ -133,7 +133,7 @@ export default function Login({ onClose }: LoginProps) {
   };
 
   return (
-    <div className="relative flex items-center justify-center h-screen w-screen">
+    <div className="relative flex items-center justify-center h-screen w-screen overflow-x-hidden">
       <div
         ref={loginRef} // Attach the ref to the main login div
         className="relative w-full max-w-4xl h-[500px] rounded-2xl bg-white shadow-lg flex"
