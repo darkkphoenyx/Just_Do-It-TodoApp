@@ -463,6 +463,9 @@ export const SearchBox = () => {
                 ) : (
                   <img src="/assets/check.svg" alt="mark todo as completed" />
                 )}
+                <h3 className="font-medium text-xl underline">
+                  createdBy{todo.user.username}
+                </h3>
               </button>
             </div>
 

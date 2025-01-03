@@ -54,11 +54,25 @@ export const getTodosAll = async () => {
 }
 
 // DELETE by id
-export const deleteTodo = async (id: number) => {
+export const deleteTodo = async (id: number,userId:any) => {
     try {
-        const todo = await prisma.todo.delete({
-            where: { id },
+        
+        const IsTodo = await prisma.todo.findUnique({
+            where: {
+                id,
+                userId,
+            },
         })
+        console.log(IsTodo)
+        if (!IsTodo) {
+            throw Boom.notFound('Not Authorized to delete todo')
+        }
+        const todo = await prisma.todo.delete({
+            where: { id }
+        })
+        if (!todo) {
+            throw Boom.notFound('Not Authorized to delete todo')
+        }
         return { message: 'Todo deleted successfully', id: todo.id }
     } catch (err: any) {
         throw Boom.notFound('Todo not found', err)

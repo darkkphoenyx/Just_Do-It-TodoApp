@@ -48,7 +48,8 @@ export const deleteTodosByID = async (
     next: NextFunction
 ) => {
     try {
-        const response = await todoService.deleteTodo(Number(req.params.id))
+        const userId = req.user.userId
+        const response = await todoService.deleteTodo(Number(req.params.id),userId)
         res.json(response)
     } catch (err) {
         next(err)
