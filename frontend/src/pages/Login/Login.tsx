@@ -149,11 +149,11 @@ export default function Login({ onClose }: LoginProps) {
               setSignInData({ ...signInData, password: e.target.value })
             }
           />
-          <a href="#" className="text-sm text-[--primary-color] mb-4">
+          <a href="#" className="text-sm text-[--p1-color] mb-4">
             Forgot Your Password?
           </a>
           <button
-            className="bg-[--primary-color] text-white py-2 px-6 rounded-full"
+            className="bg-[--p1-color] text-white py-2 px-6 rounded-full"
             onClick={handleSignInSubmit}
           >
             Sign In
@@ -198,7 +198,7 @@ export default function Login({ onClose }: LoginProps) {
             }
           />
           <button
-            className="bg-[--primary-color] text-white py-2 px-6 rounded-full"
+            className="bg-[--p1-color] text-white py-2 px-6 rounded-full"
             onClick={handleSignUpSubmit}
           >
             Sign Up
@@ -207,7 +207,7 @@ export default function Login({ onClose }: LoginProps) {
 
         {/* Overlapping Div */}
         <div
-          className={`absolute right-0 top-0 rounded-2xl w-1/2 h-full bg-[--primary-color] flex flex-col items-center justify-center transition-transform duration-700 ${
+          className={`absolute right-0 top-0 rounded-2xl w-1/2 h-full bg-[--p1-color] flex flex-col items-center justify-center transition-transform duration-700 ${
             isSignUpVisible ? "-translate-x-full" : "translate-x-0"
           }`}
           style={{ zIndex: 10 }}

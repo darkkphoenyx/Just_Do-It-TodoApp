@@ -107,7 +107,7 @@ export const SearchBox = () => {
       <div className="search-box flex gap-2 w-full justify-center">
         <div className="flex items-center border border-[--primary-color] p-1 rounded-md">
           <input
-            className="flex-grow p-1 outline-none"
+            className="flex-grow p-1 outline-none bg-transparent text-white"
             type="text"
             placeholder="Search note..."
             onChange={(e) => setSearch(e.target.value)}
@@ -119,7 +119,7 @@ export const SearchBox = () => {
           <select
             value={selectedOption}
             onChange={handleChange}
-            className="outline-none p-2 rounded-md bg-[--primary-color] text-white"
+            className="outline-none p-2 rounded-md bg-[--secondary-color] text-black"
             name="filter"
           >
             <option value="all">All</option>
