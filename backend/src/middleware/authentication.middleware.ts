@@ -2,7 +2,13 @@ import Boom from '@hapi/boom';
 import { Response, NextFunction } from 'express';
 import { RequestWithUserObject, UserJWTPayload } from '../types';
 import { verifyAccessToken } from '../utils/token.utils';
-
+declare global {
+    namespace Express {
+        interface Request {
+            user?: any;
+        }
+    }
+}
 export function authenticateToken(
     req: RequestWithUserObject,
     res: Response,

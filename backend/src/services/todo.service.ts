@@ -1,16 +1,16 @@
 import { PrismaClient } from '@prisma/client'
 import Boom from '@hapi/boom'
 import { ItodoBody, IupdateTodo } from '../interface/todo.interface'
-import { get } from 'http'
 
 const prisma = new PrismaClient()
 
 // POST todos
-export const postTodo = async (body: ItodoBody) => {
+export const postTodo = async (body: ItodoBody,userId:any) => {
     try {
         return await prisma.todo.create({
             data: {
                 ...body,
+                userId: userId,
             },
         })
     } catch (err: any) {
@@ -23,6 +23,7 @@ export const getTodo = async (id: number) => {
     try {
         const todo = await prisma.todo.findUnique({
             where: { id },
+            include: { user: true },
         })
         if (!todo) {
             throw Boom.notFound('Todo not found')
@@ -36,7 +37,17 @@ export const getTodo = async (id: number) => {
 // Get all todos
 export const getTodosAll = async () => {
     try {
-        return await prisma.todo.findMany({select: {id: true, title: true, isCompleted: true, content: true, updatedAt: true}})
+        return await prisma.todo.findMany({
+            select: {
+                id: true,
+                title: true,
+                isCompleted: true,
+                content: true,
+                updatedAt: true,
+                userId: true,
+                user: true,
+            },
+        })
     } catch (err: any) {
         throw Boom.badImplementation('Failed to get todos', err)
     }
@@ -48,50 +59,52 @@ export const deleteTodo = async (id: number) => {
         const todo = await prisma.todo.delete({
             where: { id },
         })
-        return {message: 'Todo deleted successfully', id: todo.id}
+        return { message: 'Todo deleted successfully', id: todo.id }
     } catch (err: any) {
         throw Boom.notFound('Todo not found', err)
     }
 }
 
 // UPDATE by id
-export const updateTodo = async (id: number, body:Partial <IupdateTodo>) => {
+export const updateTodo = async (id: number, body: Partial<IupdateTodo>) => {
     try {
         const todo = await prisma.todo.update({
             where: { id },
-            data: { ...body},
+            data: { ...body },
         })
-        return { id: todo.id, title: todo.title, content: todo.content, isCompleted: todo.isCompleted, updatedAt: todo.updatedAt }
+        return {
+            id: todo.id,
+            title: todo.title,
+            content: todo.content,
+            isCompleted: todo.isCompleted,
+            updatedAt: todo.updatedAt,
+            userId: todo.userId,
+        }
     } catch (err: any) {
         throw Boom.notFound('Todo not found', err)
     }
 }
-
 
 // Toggle todo
 export const toggleTodo = async (id: number) => {
     try {
         const todo = await prisma.todo.findUnique({
             where: { id },
-        });
+        })
         if (!todo) {
-            throw Boom.notFound('Todo not found');
+            throw Boom.notFound('Todo not found')
         }
-        const status = todo.isCompleted;
         const updatedTodo = await prisma.todo.update({
             where: { id },
             data: { isCompleted: !todo.isCompleted },
-        });
-        return { id: updatedTodo.id, isCompleted: updatedTodo.isCompleted };
+        })
+        return { id: updatedTodo.id, isCompleted: updatedTodo.isCompleted }
     } catch (err: any) {
-         if (err.isBoom) {
-            throw err;
-        }
-        throw Boom.badImplementation('Failed to toggle todo', err);
+        throw Boom.badImplementation('Failed to toggle todo', err)
     }
-};
+}
 
-//serach by title
+// Search by title
 export const searchByTitle = async (title: string) => {
     try {
         const todo = await prisma.todo.findMany({
@@ -100,37 +113,38 @@ export const searchByTitle = async (title: string) => {
                     contains: title,
                 },
             },
-        });
-        return todo;
+        })
+        return todo
     } catch (err: any) {
-        throw Boom.badImplementation('Failed to search todo', err);
+        throw Boom.badImplementation('Failed to search todo', err)
     }
-};
+}
 
-
-//serach by status
+// Search by status
 export const searchByStatus = async (isCompleted: string) => {
     try {
-        const convertedStatus:boolean|string = handleStatus(isCompleted);
-        if (convertedStatus.toString().length===0) { return await getTodosAll() }
+        const convertedStatus: boolean | string = handleStatus(isCompleted)
+        if (convertedStatus.toString().length === 0) {
+            return await getTodosAll()
+        }
         const todo = await prisma.todo.findMany({
             where: {
                 isCompleted: convertedStatus as boolean,
             },
-        });
-        return todo;
+        })
+        return todo
     } catch (err: any) {
-        throw Boom.badImplementation('Failed to search todo', err);
+        throw Boom.badImplementation('Failed to search todo', err)
     }
-};
+}
 
 function handleStatus(value: string) {
     switch (value) {
         case 'completed':
-            return true;
+            return true
         case 'remaining':
-            return false;
+            return false
         default:
-            return "";
+            return ""
     }
 }

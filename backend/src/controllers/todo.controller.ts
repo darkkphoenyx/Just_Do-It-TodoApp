@@ -2,17 +2,18 @@ import { Request, Response, NextFunction } from 'express'
 import * as todoService from '../services/todo.service'
 import { ItodoBody, IupdateTodo } from '../interface/todo.interface'
 
-//POST todos
+// POST todos
 export const postTodos = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
-    const response = await todoService.postTodo(req.body as ItodoBody)
+    const userId = req.user.userId
+    const response = await todoService.postTodo(req.body as ItodoBody,userId)
     res.send(response)
 }
 
-//GET by id
+// GET by id
 export const getTodosByID = async (
     req: Request,
     res: Response,
@@ -26,7 +27,7 @@ export const getTodosByID = async (
     }
 }
 
-//GET todos All
+// GET todos All
 export const getTodosAll = async (
     req: Request,
     res: Response,
@@ -40,7 +41,7 @@ export const getTodosAll = async (
     }
 }
 
-//DELETE by id
+// DELETE by id
 export const deleteTodosByID = async (
     req: Request,
     res: Response,
@@ -54,7 +55,7 @@ export const deleteTodosByID = async (
     }
 }
 
-//UPDATE by id
+// UPDATE by id
 export const updateTodo = async (
     req: Request,
     res: Response,
@@ -68,7 +69,7 @@ export const updateTodo = async (
     }
 }
 
-//TOGGLE by id
+// TOGGLE by id
 export const toggleTodo = async (
     req: Request,
     res: Response,
@@ -82,7 +83,7 @@ export const toggleTodo = async (
     }
 }
 
-//serach by title
+// Search by title
 export const searchByTitle = async (
     req: Request,
     res: Response,
@@ -96,7 +97,7 @@ export const searchByTitle = async (
     }
 }
 
-//search by status
+// Search by status
 export const searchByStatus = async (
     req: Request,
     res: Response,
