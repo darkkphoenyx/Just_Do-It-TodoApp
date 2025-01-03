@@ -19,7 +19,7 @@ Check [Issues](https://github.com/darkkphoenyx/task1_Todo_final/issues) for cont
 
 # _References_
 
-- For Fonts: [Google Fonts](https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap)
+- For Fonts: [Google Fonts](https://fonts.google.com/)
 - For Local Storage: [Web Dev Simplified Blog](https://blog.webdevsimplified.com/2020-08/cookies-localStorage-sessionStorage/)
 
 # _Contributions_
