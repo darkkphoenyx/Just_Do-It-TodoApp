@@ -6,25 +6,35 @@ import { CreateTodo } from "./CreateTodo";
 
 export const SearchBox = () => {
   const token = localStorage.getItem("accessToken");
+
   const [search, setSearch] = useState("");
   const [data, setData] = useState<any>([]);
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("all");
+  const [isCreateTodoOpen, setCreateTodoOpen] = useState(false);
 
+  // Open and close create todo modal with background blur effect
+  const handleOpenCreateTodo = () => {
+    setCreateTodoOpen(true);
+    document.body.classList.add("backdrop-blur-lg");
+  };
+
+  const handleCloseCreateTodo = () => {
+    setCreateTodoOpen(false);
+    document.body.classList.remove("backdrop-blur-lg");
+  };
+
+  // Fetch todos based on selected option
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `http://localhost:3000/todos/status?status=${selectedOption}`,
           {
-            headers: {
-              Authorization: token,
-            },
+            headers: { Authorization: token },
           }
         );
-        const data: any = response.data;
-        console.log(response);
-        setData(data);
+        setData(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -32,63 +42,48 @@ export const SearchBox = () => {
     fetchData();
   }, [selectedOption]);
 
-  //handle search
+  // Handle search functionality
   const handleSearch = async () => {
-    const response: any = await axios.get(
-      `http://localhost:3000/todos/title/?title=${search}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-    setData(response.data);
-  };
-
-  //handle close
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  //handle add todo
-  const handleAddTodo = async (todo: any) => {
-    setData([...data, todo]);
-  };
-  //handle delete
-  const handleDelete = async (id: number) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/todos/delete/${id}`,
+      const response = await axios.get(
+        `http://localhost:3000/todos/title/?title=${search}`,
         {
-          headers: {
-            Authorization: token,
-          },
+          headers: { Authorization: token },
         }
       );
-      const data: any = response.data;
-      setData((previousValue: any[]) =>
-        previousValue.filter((todo: any) => todo.id !== id)
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Handle add todo after creation
+  const handleAddTodo = async (todo: any) => {
+    setData((prevData: any[]) => [...prevData, todo]);
+  };
+
+  // Handle delete todo
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:3000/todos/delete/${id}`, {
+        headers: { Authorization: token },
+      });
+      setData((prevData: any[]) =>
+        prevData.filter((todo: any) => todo.id !== id)
       );
     } catch (error) {
       console.error(error);
     }
   };
 
-  //hangle toggleStatus
+  // Toggle todo status (completed/incomplete)
   const handleToggleStatus = async (id: number) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/todos/toggle/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      const data: any = response.data;
-      setData((previousValue: any[]) =>
-        previousValue.map((todo: any) =>
+      await axios.patch(`http://localhost:3000/todos/toggle/${id}`, {}, {
+        headers: { Authorization: token },
+      });
+      setData((prevData: any[]) =>
+        prevData.map((todo: any) =>
           todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
         )
       );
@@ -97,14 +92,26 @@ export const SearchBox = () => {
     }
   };
 
-  //handle isCompleted
-  const handleChange = (event) => {
+  // Handle filter change
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
+  };
+
+  // Trigger search on Enter key press
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   return (
     <>
-      <div className="search-box flex gap-2 w-full justify-center">
+      {isCreateTodoOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-md z-10"></div>
+      )}
+
+      {/* Search and filter box */}
+      <div className="search-box flex gap-2 w-full justify-center relative z-20">
         <div className="flex items-center border border-[--primary-color] p-1 rounded-md">
           <input
             className="flex-grow p-1 outline-none bg-transparent text-white"
@@ -112,6 +119,7 @@ export const SearchBox = () => {
             placeholder="Search note..."
             onChange={(e) => setSearch(e.target.value)}
             id="search"
+            onKeyDown={handleKeyDown} // Added onKeyDown event handler
           />
           <img src="/assets/search.svg" alt="search icon" />
         </div>
@@ -130,50 +138,41 @@ export const SearchBox = () => {
         <div>
           <button
             onClick={handleSearch}
-            className="p-2 bg-[--secondary-color] rounded-md active:translate-y-1 active:bg-[--primary-color]  transition-all"
+            className="p-2 bg-[--secondary-color] rounded-md active:translate-y-1 active:bg-[--primary-color] transition-all"
           >
             Search
           </button>
         </div>
         <div>
           <button
-            onClick={() => setOpen(true)}
-            className="p-2 bg-[--secondary-color] rounded-md active:translate-y-1 active:bg-[--primary-color]  transition-all"
+            onClick={handleOpenCreateTodo}
+            className="p-2 bg-[--secondary-color] rounded-md active:translate-y-1 active:bg-[--primary-color] transition-all"
           >
             Create Todo
           </button>
           <CreateTodo
-            open={open}
-            onClose={handleClose}
+            open={isCreateTodoOpen}
+            onClose={handleCloseCreateTodo}
             onAddTodo={handleAddTodo}
           />
         </div>
       </div>
+
+      {/* Todo list */}
       {Array.isArray(data) &&
         data.map((todo: any) => (
           <div
             key={todo.id}
-            className={`border p-4 rounded-lg w-[590px] ${
-              todo.isCompleted ? "bg-green-400" : "bg-red-400"
-            }`}
+            className={`border p-4 rounded-lg w-[590px] ${todo.isCompleted ? "bg-green-400" : "bg-red-400"}`}
           >
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-xl underline">{todo.title}</h3>
-              {todo.isCompleted ? (
-                <button
-                  onClick={() => handleToggleStatus(todo.id)}
-                  className="bg-yellow-400"
-                >
-                  Mark as Incompleted
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleToggleStatus(todo.id)}
-                  className="bg-yellow-400"
-                >
-                  Mark as Completed
-                </button>
-              )}
+              <button
+                onClick={() => handleToggleStatus(todo.id)}
+                className="bg-yellow-400"
+              >
+                {todo.isCompleted ? "Mark as Incompleted" : "Mark as Completed"}
+              </button>
             </div>
             <p className="text-black mt-2">{todo.content}</p>
             <div className="flex items-center justify-between mt-4">
@@ -196,3 +195,4 @@ export const SearchBox = () => {
     </>
   );
 };
+
