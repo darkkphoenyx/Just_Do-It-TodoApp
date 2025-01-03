@@ -19,8 +19,8 @@ This is the backend service for the [**Just Do It!**]() to-do application. It pr
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
-   cd just-do-it-backend
+   git clone https://github.com/darkkphoenyx/task1_Todo_final.git
+   cd backend
    ```
 
 2. Install dependencies:
