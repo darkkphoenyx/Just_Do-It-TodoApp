@@ -21,6 +21,7 @@ export const createRefreshToken = (userId: any) => {
 }
 
 export const verifyAccessToken = (accessToken: string) => {
+    console.log(accessToken)
     return jwt.verify(
         accessToken,
         process.env.JWT_ACCESS_TOKEN_SECRET as string
