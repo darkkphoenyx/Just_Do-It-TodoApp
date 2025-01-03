@@ -40,7 +40,7 @@ This is the backend service for the [**Just Do It!**]() to-do application. It pr
 
 4. Run the server:
    ```bash
-   npm start
+   npm run start
    ```
 
 ---
