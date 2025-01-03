@@ -117,6 +117,20 @@ export default function Login({ onClose }: LoginProps) {
     };
   }, [onClose]);
 
+  // Handle Enter key press to submit the form
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    isSignUp: boolean
+  ) => {
+    if (event.key === "Enter") {
+      if (isSignUp) {
+        handleSignUpSubmit();
+      } else {
+        handleSignInSubmit();
+      }
+    }
+  };
+
   return (
     <div className="relative flex items-center justify-center h-screen w-screen">
       <div
@@ -139,6 +153,7 @@ export default function Login({ onClose }: LoginProps) {
             onChange={(e) =>
               setSignInData({ ...signInData, email: e.target.value })
             }
+            onKeyDown={(e) => handleKeyDown(e, false)} // Add the keydown event for Enter
           />
           <input
             type="password"
@@ -148,6 +163,7 @@ export default function Login({ onClose }: LoginProps) {
             onChange={(e) =>
               setSignInData({ ...signInData, password: e.target.value })
             }
+            onKeyDown={(e) => handleKeyDown(e, false)} // Add the keydown event for Enter
           />
           <a href="#" className="text-sm text-[--p1-color] mb-4">
             Forgot Your Password?
@@ -178,6 +194,7 @@ export default function Login({ onClose }: LoginProps) {
             onChange={(e) =>
               setSignUpData({ ...signUpData, username: e.target.value })
             }
+            onKeyDown={(e) => handleKeyDown(e, true)} // Add the keydown event for Enter
           />
           <input
             type="email"
@@ -187,6 +204,7 @@ export default function Login({ onClose }: LoginProps) {
             onChange={(e) =>
               setSignUpData({ ...signUpData, email: e.target.value })
             }
+            onKeyDown={(e) => handleKeyDown(e, true)} // Add the keydown event for Enter
           />
           <input
             type="password"
@@ -196,6 +214,7 @@ export default function Login({ onClose }: LoginProps) {
             onChange={(e) =>
               setSignUpData({ ...signUpData, password: e.target.value })
             }
+            onKeyDown={(e) => handleKeyDown(e, true)} // Add the keydown event for Enter
           />
           <button
             className="bg-[--p1-color] text-white py-2 px-6 rounded-full"
