@@ -53,8 +53,9 @@ export async function login(email: string, password: string) {
     const accessToken = createAccessToken(user.id);
 
     const refreshToken = createRefreshToken(user.id);
+    const username = user.username;
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, username};
 }
 
 export async function refresh(refreshToken: string) {

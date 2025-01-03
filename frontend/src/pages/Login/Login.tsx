@@ -53,6 +53,7 @@ export default function Login({ onClose }: LoginProps) {
 
       console.log("Sign In Success:", data.accessToken); // Handle successful sign-in
       localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("username", data.username);
       // Show success alert
       Swal.fire({
         icon: "success",
