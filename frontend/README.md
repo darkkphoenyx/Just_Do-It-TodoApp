@@ -18,7 +18,7 @@ The frontend for [**Just Do It!**]() is a responsive and user-friendly interface
 1. Clone the repository:
 
    ```bash
-   git clone <https://github.com/darkkphoenyx/task1_Todo_final.git
+   git clone https://github.com/darkkphoenyx/task1_Todo_final.git
    cd frontend
    ```
 
