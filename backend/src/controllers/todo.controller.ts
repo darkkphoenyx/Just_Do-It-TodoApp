@@ -63,7 +63,8 @@ export const updateTodo = async (
     next: NextFunction
 ) => {
     try {
-        const response = await todoService.updateTodo(Number(req.params.id), req.body as IupdateTodo)
+        const userId = req.user.userId
+        const response = await todoService.updateTodo(Number(req.params.id), req.body as IupdateTodo,userId)
         res.json(response)
     } catch (err) {
         next(err)
@@ -77,7 +78,8 @@ export const toggleTodo = async (
     next: NextFunction
 ) => {
     try {
-        const response = await todoService.toggleTodo(Number(req.params.id))
+        const userId = req.user.userId
+        const response = await todoService.toggleTodo(Number(req.params.id),userId)
         res.json(response)
     } catch (err) {
         next(err)
