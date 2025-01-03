@@ -134,7 +134,7 @@ export default function Login({ onClose }: LoginProps) {
           <input
             type="email"
             placeholder="Email"
-            className="w-full p-3 mb-4 border rounded-lg bg-gray-200"
+            className="w-full p-3 mb-4 border rounded-lg bg-gray-200 outline-none"
             value={signInData.email}
             onChange={(e) =>
               setSignInData({ ...signInData, email: e.target.value })
@@ -143,7 +143,7 @@ export default function Login({ onClose }: LoginProps) {
           <input
             type="password"
             placeholder="Password"
-            className="w-full p-3 mb-4 border rounded-lg bg-gray-200"
+            className="w-full p-3 mb-4 border rounded-lg bg-gray-200 outline-none"
             value={signInData.password}
             onChange={(e) =>
               setSignInData({ ...signInData, password: e.target.value })
@@ -173,7 +173,7 @@ export default function Login({ onClose }: LoginProps) {
           <input
             type="text"
             placeholder="Username"
-            className="w-full p-3 mb-4 border rounded-lg bg-gray-200"
+            className="w-full p-3 mb-4 border rounded-lg bg-gray-200 outline-none"
             value={signUpData.username}
             onChange={(e) =>
               setSignUpData({ ...signUpData, username: e.target.value })
@@ -182,7 +182,7 @@ export default function Login({ onClose }: LoginProps) {
           <input
             type="email"
             placeholder="Email"
-            className="w-full p-3 mb-4 border rounded-lg bg-gray-200"
+            className="w-full p-3 mb-4 border rounded-lg bg-gray-200 outline-none"
             value={signUpData.email}
             onChange={(e) =>
               setSignUpData({ ...signUpData, email: e.target.value })
@@ -191,7 +191,7 @@ export default function Login({ onClose }: LoginProps) {
           <input
             type="password"
             placeholder="Password"
-            className="w-full p-3 mb-4 border rounded-lg bg-gray-200"
+            className="w-full p-3 mb-4 border rounded-lg bg-gray-200 outline-none"
             value={signUpData.password}
             onChange={(e) =>
               setSignUpData({ ...signUpData, password: e.target.value })
@@ -221,7 +221,7 @@ export default function Login({ onClose }: LoginProps) {
               : "Sign up and Create Your First Todo now."}
           </p>
           <button
-            className="bg-transparent border-white border py-2 px-6 rounded-full"
+            className="bg-transparent border-white text-white border py-2 px-6 rounded-full"
             onClick={isSignUpVisible ? handleSignInClick : handleSignUpClick}
           >
             {isSignUpVisible ? "Sign In" : "Sign Up"}
