@@ -18,7 +18,7 @@ The frontend for [**Just Do It!**]() is a responsive and user-friendly interface
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/darkkphoenyx/task1_Todo_final.git
+   git clone https://github.com/darkkphoenyx/Just_Do-It-TodoApp.git
    cd frontend
    ```
 
@@ -87,9 +87,9 @@ src/
 
 ## Contributing
 
-Feel free to [fork](https://github.com/login?return_to=%2Fdarkkphoenyx%2Ftask1_Todo_final) this repository, create a new branch, and submit a pull request with your changes.
+Feel free to [fork](https://github.com/login?return_to=%2Fdarkkphoenyx%2FJust_Do-It-TodoApp) this repository, create a new branch, and submit a pull request with your changes.
 
-- Check the [CONTRUBUTING.md](https://github.com/darkkphoenyx/task1_Todo_final/blob/master/CONTRIBUTING.md) file for more details.
+- Check the [CONTRUBUTING.md](https://github.com/darkkphoenyx/Just_Do-It-TodoApp/blob/master/CONTRIBUTING.md) file for more details.
 
 ---
 

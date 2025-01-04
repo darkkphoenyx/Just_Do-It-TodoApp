@@ -1,7 +1,7 @@
 # Greetings, contributors!
 
-- Have a look at the [Issues](https://github.com/darkkphoenyx/task1_Todo_final/issues) section for issues that need to be solved!
-- If you make a contribution, please do not forget to add your personal details to the [CONTRIBUTORS.md](https://github.com/darkkphoenyx/task1_Todo_final/blob/master/CONTRIBUTORS.md) file!
+- Have a look at the [Issues](https://github.com/darkkphoenyx/Just_Do-It-TodoApp/issues) section for issues that need to be solved!
+- If you make a contribution, please do not forget to add your personal details to the [CONTRIBUTORS.md](https://github.com/darkkphoenyx/Just_Do-It-TodoApp/blob/master/CONTRIBUTORS.md) file!
 
 ## _Technologies used_
 
@@ -23,7 +23,7 @@
   For example, run this command inside your terminal:
 
   ```bash
-  git clone https://github.com/darkkphoenyx/task1_Todo_final.git
+  git clone https://github.com/darkkphoenyx/Just_Do-It-TodoApp.git
   ```
 
   Learn more about [forking](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) and [cloning a repo](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
@@ -31,7 +31,7 @@
 - Before you make any changes, [keep your fork in sync](https://www.freecodecamp.org/news/how-to-sync-your-fork-with-the-original-git-repository/) to avoid merge conflicts:
 
   ```bash
-  git remote add upstream https://github.com/darkkphoenyx/task1_Todo_final.git
+  git remote add upstream https://github.com/darkkphoenyx/Just_Do-It-TodoApp.git
   git fetch upstream
   git pull upstream master
   git push

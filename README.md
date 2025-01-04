@@ -1,7 +1,7 @@
 # Just Do It.
 [Just Do It!]() is your go-to task manager, built for simplicity and efficiency. Log in to access your personalized to-dos, filter tasks by status, and search with ease. With local storage support, your tasks are always accessible, even offline. Designed for desktop responsiveness, it ensures a seamless experience while keeping your tasks secure and user-specific. Stay organized and productive with Just Do It!
 
-- View the local installation in the [CONTRUBUTING.md](https://github.com/darkkphoenyx/task1_Todo_final/blob/master/CONTRIBUTING.md).
+- View the local installation in the [CONTRUBUTING.md](https://github.com/darkkphoenyx/Just_Do-It-TodoApp/blob/master/CONTRIBUTING.md).
 
 ### _Features_:
 
@@ -15,7 +15,7 @@
 
 ### _Discuss issues here_:
 
-Check [Issues](https://github.com/darkkphoenyx/task1_Todo_final/issues) for contributing to this repository.
+Check [Issues](https://github.com/darkkphoenyx/Just_Do-It-TodoApp/issues) for contributing to this repository.
 
 # _References_
 
@@ -25,7 +25,7 @@ Check [Issues](https://github.com/darkkphoenyx/task1_Todo_final/issues) for cont
 # _Contributions_
 
 - All contributors are most welcome! This is definitely open source!
-- View the [`CONTRIBUTING.md`](https://github.com/darkkphoenyx/task1_Todo_final/blob/master/CONTRIBUTING.md) for further instructions, requirements/dependencies & local project setup instructions!
+- View the [`CONTRIBUTING.md`](https://github.com/darkkphoenyx/Just_Do-It-TodoApp/blob/master/CONTRIBUTING.md) for further instructions, requirements/dependencies & local project setup instructions!
 - All the contributors to this repository can be found in the [`CONTRIBUTORS.md`](https://github.com/darkkphoenyx/task1_Todo_final/blob/master/CONTRIBUTORS.md) file!
 
 ## _WEBSITE DEMO_
