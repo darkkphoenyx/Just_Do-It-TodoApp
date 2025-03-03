@@ -9,9 +9,6 @@ exports.postTodoDto = zod_1.z.object({
         }),
         content: zod_1.z.string({
             required_error: 'content is required'
-        }),
-        userId: zod_1.z.number({
-            required_error: 'userId is required'
         })
     }),
 });

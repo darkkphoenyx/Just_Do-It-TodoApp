@@ -60,7 +60,8 @@ function login(email, password) {
         }
         const accessToken = (0, token_utils_1.createAccessToken)(user.id);
         const refreshToken = (0, token_utils_1.createRefreshToken)(user.id);
-        return { accessToken, refreshToken };
+        const username = user.username;
+        return { accessToken, refreshToken, username };
     });
 }
 function refresh(refreshToken) {

@@ -61,11 +61,11 @@ exports.registerUser = registerUser;
 const loginUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = auth_validator_1.loginBodySchema.parse(req.body);
-        const { accessToken, refreshToken } = yield Authservice.login(email, password);
+        const { accessToken, refreshToken, username } = yield Authservice.login(email, password);
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             path: '/api/auth/refresh',
-        }).json({ accessToken });
+        }).json({ accessToken, username });
     }
     catch (error) {
         next(error);

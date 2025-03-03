@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/main.ts",
+    "start": "nodemon --ext ts --exec ts-node ./src/main.ts",
+    "build": "tsc",
+    "dev": "nodemon --exec ts-node ./src/main.ts",
     "format": "prettier --write .",
     "lint-fix": "eslint --ignore-path .eslintignore . --fix"
   },

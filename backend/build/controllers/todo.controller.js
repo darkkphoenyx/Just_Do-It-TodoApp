@@ -46,7 +46,8 @@ exports.searchByStatus = exports.searchByTitle = exports.toggleTodo = exports.up
 const todoService = __importStar(require("../services/todo.service"));
 // POST todos
 const postTodos = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield todoService.postTodo(req.body);
+    const userId = req.user.userId;
+    const response = yield todoService.postTodo(req.body, userId);
     res.send(response);
 });
 exports.postTodos = postTodos;
@@ -64,7 +65,8 @@ exports.getTodosByID = getTodosByID;
 // GET todos All
 const getTodosAll = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield todoService.getTodosAll();
+        const userId = req.user.userId;
+        const response = yield todoService.getTodosAll(userId);
         res.json(response);
     }
     catch (err) {
@@ -75,7 +77,8 @@ exports.getTodosAll = getTodosAll;
 // DELETE by id
 const deleteTodosByID = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield todoService.deleteTodo(Number(req.params.id));
+        const userId = req.user.userId;
+        const response = yield todoService.deleteTodo(Number(req.params.id), userId);
         res.json(response);
     }
     catch (err) {
@@ -86,7 +89,8 @@ exports.deleteTodosByID = deleteTodosByID;
 // UPDATE by id
 const updateTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield todoService.updateTodo(Number(req.params.id), req.body);
+        const userId = req.user.userId;
+        const response = yield todoService.updateTodo(Number(req.params.id), req.body, userId);
         res.json(response);
     }
     catch (err) {
@@ -97,7 +101,8 @@ exports.updateTodo = updateTodo;
 // TOGGLE by id
 const toggleTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield todoService.toggleTodo(Number(req.params.id));
+        const userId = req.user.userId;
+        const response = yield todoService.toggleTodo(Number(req.params.id), userId);
         res.json(response);
     }
     catch (err) {
@@ -108,7 +113,8 @@ exports.toggleTodo = toggleTodo;
 // Search by title
 const searchByTitle = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield todoService.searchByTitle(req.query.title);
+        const userId = req.user.userId;
+        const response = yield todoService.searchByTitle(req.query.title, userId);
         res.json(response);
     }
     catch (err) {
@@ -119,7 +125,8 @@ exports.searchByTitle = searchByTitle;
 // Search by status
 const searchByStatus = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield todoService.searchByStatus(req.query.status);
+        const userId = req.user.userId;
+        const response = yield todoService.searchByStatus(req.query.status, userId);
         res.json(response);
     }
     catch (err) {

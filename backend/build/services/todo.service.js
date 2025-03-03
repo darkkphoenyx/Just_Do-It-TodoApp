@@ -17,10 +17,10 @@ const client_1 = require("@prisma/client");
 const boom_1 = __importDefault(require("@hapi/boom"));
 const prisma = new client_1.PrismaClient();
 // POST todos
-const postTodo = (body) => __awaiter(void 0, void 0, void 0, function* () {
+const postTodo = (body, userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield prisma.todo.create({
-            data: Object.assign({}, body),
+            data: Object.assign(Object.assign({}, body), { userId: userId }),
         });
     }
     catch (err) {
@@ -33,6 +33,7 @@ const getTodo = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const todo = yield prisma.todo.findUnique({
             where: { id },
+            include: { user: true },
         });
         if (!todo) {
             throw boom_1.default.notFound('Todo not found');
@@ -45,9 +46,12 @@ const getTodo = (id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getTodo = getTodo;
 // Get all todos
-const getTodosAll = () => __awaiter(void 0, void 0, void 0, function* () {
+const getTodosAll = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield prisma.todo.findMany({
+            where: {
+                userId
+            },
             select: {
                 id: true,
                 title: true,
@@ -55,7 +59,8 @@ const getTodosAll = () => __awaiter(void 0, void 0, void 0, function* () {
                 content: true,
                 updatedAt: true,
                 userId: true,
-            }
+                user: true,
+            },
         });
     }
     catch (err) {
@@ -64,21 +69,42 @@ const getTodosAll = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getTodosAll = getTodosAll;
 // DELETE by id
-const deleteTodo = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteTodo = (id, userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const todo = yield prisma.todo.delete({
-            where: { id },
+        const IsTodo = yield prisma.todo.findUnique({
+            where: {
+                id,
+                userId,
+            },
         });
+        if (!IsTodo) {
+            throw boom_1.default.notFound('Not Authorized to delete todo');
+        }
+        const todo = yield prisma.todo.delete({
+            where: { id }
+        });
+        if (!todo) {
+            throw boom_1.default.notFound('Not Authorized to delete todo');
+        }
         return { message: 'Todo deleted successfully', id: todo.id };
     }
     catch (err) {
-        throw boom_1.default.notFound('Todo not found', err);
+        throw err;
     }
 });
 exports.deleteTodo = deleteTodo;
 // UPDATE by id
-const updateTodo = (id, body) => __awaiter(void 0, void 0, void 0, function* () {
+const updateTodo = (id, body, userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const IsTodo = yield prisma.todo.findUnique({
+            where: {
+                id,
+                userId,
+            },
+        });
+        if (!IsTodo) {
+            throw boom_1.default.notFound('Not Authorized to delete todo');
+        }
         const todo = yield prisma.todo.update({
             where: { id },
             data: Object.assign({}, body),
@@ -98,8 +124,17 @@ const updateTodo = (id, body) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.updateTodo = updateTodo;
 // Toggle todo
-const toggleTodo = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const toggleTodo = (id, userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const IsTodo = yield prisma.todo.findUnique({
+            where: {
+                id,
+                userId,
+            },
+        });
+        if (!IsTodo) {
+            throw boom_1.default.notFound('Not Authorized to delete todo');
+        }
         const todo = yield prisma.todo.findUnique({
             where: { id },
         });
@@ -118,31 +153,36 @@ const toggleTodo = (id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.toggleTodo = toggleTodo;
 // Search by title
-const searchByTitle = (title) => __awaiter(void 0, void 0, void 0, function* () {
+const searchByTitle = (title, userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const todo = yield prisma.todo.findMany({
             where: {
+                userId,
                 title: {
                     contains: title,
                 },
             },
         });
+        if (!todo) {
+            throw boom_1.default.notFound('Todo not found');
+        }
         return todo;
     }
     catch (err) {
-        throw boom_1.default.badImplementation('Failed to search todo', err);
+        throw err;
     }
 });
 exports.searchByTitle = searchByTitle;
 // Search by status
-const searchByStatus = (isCompleted) => __awaiter(void 0, void 0, void 0, function* () {
+const searchByStatus = (isCompleted, userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const convertedStatus = handleStatus(isCompleted);
         if (convertedStatus.toString().length === 0) {
-            return yield (0, exports.getTodosAll)();
+            return yield (0, exports.getTodosAll)(userId);
         }
         const todo = yield prisma.todo.findMany({
             where: {
+                userId,
                 isCompleted: convertedStatus,
             },
         });
